@@ -1,0 +1,18 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run main.py with args",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--access_key", "hAO/bagJlHSDJV16VxJL5Gcl+h/ip+2kPrBzseFafiLwphPPscEhig==",
+                "--model_path", "models/porcupine_params_fr.pv",
+                "--keyword_paths", "keyword_files/linux/c3po_linux.ppn",
+                "-m", "fr"
+            ]
+        }
+    ]
+}
