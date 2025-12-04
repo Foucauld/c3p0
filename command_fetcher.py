@@ -1,110 +1,55 @@
-import actions
-import locations
-import devices
-import commands
+from commands import Command
+from typing import Dict, Callable, List
+import json
 
 
-def extract_command(command_text):
-    # Exemple de texte reconnu : "Allumer la lumière et éteindre les volets dans le salon"
-    # Vous devrez adapter cette partie en fonction du format réel du texte reconnu
+def load_commands(json_path: str, func_map: Dict[str, Callable]):
+    with open(json_path, "r", encoding="utf-8") as f:
+        data = json.load(f)
 
-    # Diviser le texte reconnu en mots
-    command_words = command_text.lower().split()
+    commands = [Command.from_dict(d, func_map[d["name"]]) for d in data]
 
-    # Gérer les synonymes pour les actions et les périphériques
-    normalized_actions = []
-    normalized_devices = []
-    normalized_locations = []
-    trash_words = []
+    target_to_triggers = {}
+    target_to_commands = {}
 
-    categories = [
-        (actions.action_synonyms, normalized_actions),
-        (devices.device_synonyms, normalized_devices),
-        (locations.location_synonyms, normalized_locations),
-    ]
+    for cmd in commands:
+        target_to_triggers.setdefault(cmd.target, [])
+        target_to_triggers[cmd.target].extend(cmd.target_triggers)
+        # Éventuellement supprimer les doublons
+        target_to_triggers[cmd.target] = list(set(target_to_triggers[cmd.target]))
+        target_to_commands.setdefault(cmd.target, []).append(cmd)
 
-    for word in command_words:
-        print(f"Mot détecté : {word}")
-        found = False
-        for synonyms_dict, normalized_list in categories:
-            for key, synonyms in synonyms_dict.items():
-                if word in synonyms:
-                    normalized_list.append(key)
-                    found = True
+    return target_to_triggers, target_to_commands
+
+
+def extract_command(
+    command_text: str,
+    target_to_triggers: Dict[str, List[str]],
+    target_to_commands: Dict[str, List[Command]],
+) -> Command:
+    words = command_text.lower().split()
+
+    # 1️⃣ Chercher le target
+    matched_target = None
+    for target, triggers in target_to_triggers.items():
+        if any(word in triggers for word in words):
+            matched_target = target
+            break
+
+    if not matched_target:
+        print("Aucune target détectée")
+        return None
+
+    # 2️⃣ Chercher la commande spécifique dans les commandes correspondant à la target
+    for cmd in target_to_commands[matched_target]:
+        if any(word in cmd.action_triggers for word in words):
+            # On peut éventuellement chercher les paramètres ici aussi
+            matched_param = None
+            for param_id, triggers in cmd.parameters.items():
+                if any(word in triggers for word in words):
+                    matched_param = param_id
                     break
-            if found:
-                break
-        if not found:
-            trash_words.append(word)
+            return (cmd, matched_param)
 
-    # Vérifier les données manquantes ou en double
-    actions_set = set(normalized_actions)
-    devices_set = set(normalized_devices)
-    locations_set = set(normalized_locations)
-
-    if len(actions_set) != 1:
-        print(
-            f"Il doit y avoir une seule action dans la commande. Actions: {actions_set}"
-        )
-        action_return = actions.Actions.NONE
-    else:
-        action_return = list(actions_set)[0]
-    if len(devices_set) != 1:
-        print(
-            f"Il doit y avoir un seul périphérique dans la commande. Devices: {devices_set}"
-        )
-        device_return = devices.Devices.NONE
-    else:
-        device_return = list(devices_set)[0]
-    if len(locations_set) != 1:
-        print(
-            f"Il doit y avoir un seul lieu dans la commande. Locations: {locations_set}"
-        )
-        location_return = locations.Locations.NONE
-    else:
-        location_return = list(locations_set)[0]
-    print(
-        f"Les mots non reconnus dans les actions, lieux ou périphériques : TrashWords : {trash_words}"
-    )
-
-    # Retourner les mots normalisés
-    return action_return, location_return, device_return
-
-
-def command_dispatcher(action, location, device):
-    """
-    Mappe le triplet (action, location, device) à une commande générique.
-    L'Enum Command ne dépend plus de la pièce.
-    """
-    if (
-        action == actions.Actions.NONE
-        or location == locations.Locations.NONE
-        or device == devices.Devices.NONE
-    ):
-        return commands.Command.NOT_IMPLEMENTED
-
-    if device == devices.Devices.PLUG:
-        if action == actions.Actions.ON:
-            return commands.Command.PRISE_ON
-        elif action == actions.Actions.OFF:
-            return commands.Command.PRISE_OFF
-
-    elif device == devices.Devices.LIGHT:
-        if action == actions.Actions.ON:
-            return commands.Command.LUMIERE_ON
-        elif action == actions.Actions.OFF:
-            return commands.Command.LUMIERE_OFF
-
-    elif device == devices.Devices.LAMP:
-        if action == actions.Actions.ON:
-            return commands.Command.LAMPE_ON
-        elif action == actions.Actions.OFF:
-            return commands.Command.LAMPE_OFF
-
-    elif device == devices.Devices.AMBIENCE:
-        if action == actions.Actions.CHILL:
-            return commands.Command.AMBIENCE_CHILL
-        elif action == actions.Actions.NORMAL:
-            return commands.Command.AMBIENCE_NORMAL
-
-    return commands.Command.NOT_IMPLEMENTED
+    print("Aucune commande correspondante trouvée pour la target:", matched_target)
+    return None

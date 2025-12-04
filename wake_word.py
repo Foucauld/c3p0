@@ -22,7 +22,12 @@ import command_fetcher
 import response_manager
 import speech_to_text
 import command_executor
-import locations
+from command_functions import (
+    allume_device,
+    eteins_device,
+    donne_planning,
+    ajoute_liste_courses,
+)
 
 
 class WakeWord(Thread):
@@ -31,6 +36,17 @@ class WakeWord(Thread):
     upon detecting the specified wake word(s) prints the detection time and wake word on console. It optionally saves
     the recorded audio into a file for further debugging.
     """
+
+    # Mapping des commandes JSON → fonctions
+    func_map = {
+        "allume_plafonnier": allume_device,
+        "eteins_plafonnier": eteins_device,
+        "allume_salon": allume_device,
+        "eteins_salon": eteins_device,
+        "donne_planning": donne_planning,
+        "ajoute_liste_courses": ajoute_liste_courses,
+        "donne_liste_courses": donne_planning,  # ou fonction dédiée
+    }
 
     def __init__(
         self,
@@ -110,6 +126,11 @@ class WakeWord(Thread):
             for keyword, sensitivity in zip(keywords, self._sensitivities):
                 print("  %s (%.2f)" % (keyword, sensitivity))
             print("}")
+            command_file = "Commands.json"
+            print(f"loading commands from {command_file}")
+            target_to_triggers, target_to_commands = command_fetcher.load_commands(
+                command_file, self.func_map
+            )
 
             while True:
                 pcm = recorder.read()
@@ -124,22 +145,15 @@ class WakeWord(Thread):
 
                     # Reconnaissance vocale
                     command_text = speech_to_text.run(self._args)
-                    command_list = command_fetcher.extract_command(command_text)
-                    command = command_fetcher.command_dispatcher(*command_list)
-                    print(f"Commande résultante : {command.name} ({command.value})")
-
-                    # Récupération de la location pour gérer les groupes (salon, chambre, ...)
-                    location = (
-                        command_list[1].name
-                        if command_list[1] != locations.Locations.NONE
-                        else None
+                    command = command_fetcher.extract_command(
+                        command_text, target_to_triggers, target_to_commands
                     )
 
                     # Lecture de la réponse audio / fallback TTS
-                    response_manager.execute_response(command, location)
+                    # response_manager.execute_response(command)
 
                     # Exécution de la commande sur les devices / scènes
-                    command_executor.execute_command(command, location)
+                    command_executor.execute_command(command)
 
                     recorder.start()
 

@@ -1,0 +1,66 @@
+[
+  {
+    "name": "allume_plafonnier",
+    "target_id": "lumiere",
+    "target_triggers": ["lumière", "plafonnier", "éclairage"],
+    "action": "allumer",
+    "action_triggers": ["allume", "allumer", "ouvre"],
+    "parameters": {
+      "plafonnier": ["plafonnier", "plafond"],
+      "lampe_pied": ["lampe", "lampe à pied"]
+    }
+  },
+  {
+    "name": "eteins_plafonnier",
+    "target_id": "lumiere",
+    "target_triggers": ["lumière", "plafonnier", "éclairage"],
+    "action": "eteindre",
+    "action_triggers": ["eteins", "éteins", "ferme"],
+    "parameters": {
+      "plafonnier": ["plafonnier", "plafond"],
+      "lampe_pied": ["lampe", "lampe à pied"]
+    }
+  },
+  {
+    "name": "allume_salon",
+    "target_id": "groupe_salon",
+    "target_triggers": ["salon"],
+    "action": "allumer",
+    "action_triggers": ["allume", "allumer"],
+    "parameters": {}
+  },
+  {
+    "name": "eteins_salon",
+    "target_id": "groupe_salon",
+    "target_triggers": ["salon"],
+    "action": "eteindre",
+    "action_triggers": ["eteins", "éteins"],
+    "parameters": {}
+  },
+  {
+    "name": "donne_planning",
+    "target_id": "planning",
+    "target_triggers": ["planning", "agenda", "emploi du temps"],
+    "action": "donner",
+    "action_triggers": ["donne", "affiche", "montre", "donne-moi"],
+    "parameters": {}
+  },
+  {
+    "name": "ajoute_liste_courses",
+    "target_id": "liste_de_courses",
+    "target_triggers": ["liste de courses", "courses"],
+    "action": "ajouter",
+    "action_triggers": ["ajoute", "ajouter", "mets"],
+    "parameters": {
+      "item": ["pain", "lait", "oeufs"] 
+    }
+  },
+  {
+    "name": "donne_liste_courses",
+    "target_id": "liste_de_courses",
+    "target_triggers": ["liste de courses", "courses"],
+    "action": "donner",
+    "action_triggers": ["donne", "affiche", "montre", "donne-moi"],
+    "parameters": {}
+  }
+]

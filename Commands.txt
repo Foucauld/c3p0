@@ -1,6 +1,0 @@
-Allume  le salon
-        la prise du salon
-        la lumière du salon
-Eteins  le salon
-        la prise du salon
-        la lumière du salon
