@@ -32,13 +32,13 @@ def parse_text(text: str) -> dict:
     print_room = ""
     print_param = ""
     for act in detected_action:
-        print_action = " ".join(print_action, act)
+        print_action = " ".join([print_action, act])
     for tar in detected_target:
-        print_target = " ".join(print_target, tar)
+        print_target = " ".join([print_target, tar])
     for room in detected_rooms:
-        print_room = " ".join(print_room, room)
+        print_room = " ".join([print_room, room])
     for param in detected_params:
-        print_param = " ".join(print_param, param)
+        print_param = " ".join([print_param, param])
 
     print(
         f"Actions : {print_action}\nTarget : {print_target}\nRooms : {print_room}\nParams : {print_param}\n"

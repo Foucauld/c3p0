@@ -18,7 +18,7 @@ TARGET_KEYWORDS = {
 # Actions génériques
 ACTION_KEYWORDS = {
     "enable": ["allume", "allumer", "ouvre"],
-    "disable": ["éteins", "eteins", "ferme"],
+    "disable": ["éteins", "eteins", "ferme", "etant", "étant"],
     "add": ["ajoute", "ajouter", "rajoute"],
     "remove": ["retire", "retirer", "enlève"],
     "show": ["montre", "affiche", "donne", "montres-moi"],
@@ -29,10 +29,10 @@ ACTION_KEYWORDS = {
 #  ROOMS
 # ---------------------
 ROOM_KEYWORDS = {
-    "salon": ["salon", "séjour"],
-    "cuisine": ["cuisine"],
-    "bureau": ["bureau"],
-    "chambre": ["chambre"],
+    "living_room": ["salon", "séjour"],
+    "kitchen": ["cuisine"],
+    "study": ["bureau"],
+    "bedroom": ["chambre"],
 }
 
 
