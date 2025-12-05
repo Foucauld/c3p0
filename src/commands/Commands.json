@@ -1,39 +1,49 @@
 [
   {
-    "name": "allume_plafonnier",
-    "target_id": "lumiere",
-    "target_triggers": ["lumière", "plafonnier", "éclairage"],
-    "action": "allumer",
+    "name": "light_on",
+    "target_id": "light",
+    "target_triggers": ["lumière", "plafonnier", "éclairage", "lampe"],
+    "action": "enable",
     "action_triggers": ["allume", "allumer", "ouvre"],
     "parameters": {
-      "plafonnier": ["plafonnier", "plafond"],
-      "lampe_pied": ["lampe", "lampe à pied"]
+      "ceiling": ["plafonnier", "plafond"],
+      "floor_lamp": ["lampe"],
+      "bed_lamp": ["chevet"],
+      "salon": ["salon"],
+      "chambre": ["chambre"],
+      "bureau": ["bureau"],
+      "cuisine": ["cuisine"]
     }
   },
   {
-    "name": "eteins_plafonnier",
-    "target_id": "lumiere",
-    "target_triggers": ["lumière", "plafonnier", "éclairage"],
-    "action": "eteindre",
+    "name": "light_off",
+    "target_id": "light",
+    "target_triggers": ["lumière", "plafonnier", "éclairage", "lampe"],
+    "action": "disable",
     "action_triggers": ["eteins", "éteins", "ferme"],
     "parameters": {
-      "plafonnier": ["plafonnier", "plafond"],
-      "lampe_pied": ["lampe", "lampe à pied"]
+      "ceiling": ["plafonnier", "plafond"],
+      "floor_lamp": ["lampe"],
+      "bed_lamp": ["chevet"],
+      "salon": ["salon"],
+      "chambre": ["chambre"],
+      "bureau": ["bureau"],
+      "cuisine": ["cuisine"]
     }
   },
   {
-    "name": "allume_salon",
-    "target_id": "groupe_salon",
+    "name": "lights_living_room_on",
+    "target_id": "living_room",
     "target_triggers": ["salon"],
-    "action": "allumer",
+    "action": "enable",
     "action_triggers": ["allume", "allumer"],
     "parameters": {}
   },
   {
-    "name": "eteins_salon",
-    "target_id": "groupe_salon",
+    "name": "lights_living_room_off",
+    "target_id": "living_room",
     "target_triggers": ["salon"],
-    "action": "eteindre",
+    "action": "disable",
     "action_triggers": ["eteins", "éteins"],
     "parameters": {}
   },
@@ -41,7 +51,7 @@
     "name": "donne_planning",
     "target_id": "planning",
     "target_triggers": ["planning", "agenda", "emploi du temps"],
-    "action": "donner",
+    "action": "provide",
     "action_triggers": ["donne", "affiche", "montre", "donne-moi"],
     "parameters": {}
   },
@@ -49,7 +59,7 @@
     "name": "ajoute_liste_courses",
     "target_id": "liste_de_courses",
     "target_triggers": ["liste de courses", "courses"],
-    "action": "ajouter",
+    "action": "add",
     "action_triggers": ["ajoute", "ajouter", "mets"],
     "parameters": {
       "item": ["pain", "lait", "oeufs"] 
@@ -59,7 +69,7 @@
     "name": "donne_liste_courses",
     "target_id": "liste_de_courses",
     "target_triggers": ["liste de courses", "courses"],
-    "action": "donner",
+    "action": "provide",
     "action_triggers": ["donne", "affiche", "montre", "donne-moi"],
     "parameters": {}
   }
