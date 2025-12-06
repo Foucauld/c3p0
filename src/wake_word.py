@@ -25,6 +25,7 @@ import speech_to_text
 # import core.command_executor as command_executor
 import nlu.parser as parser
 import commands.command_dispatcher as dispatcher
+import response_manager
 
 
 class WakeWord(Thread):
@@ -128,9 +129,10 @@ class WakeWord(Thread):
                     command_text = speech_to_text.run(self._args)
                     # params = parser.parse_text(command_text)
                     result = dispatcher.dispatch_command(command_text)
+                    print(f"{result}")
 
                     # Lecture de la réponse audio / fallback TTS
-                    # response_manager.execute_response(command)
+                    response_manager.execute_response(result)
 
                     # Exécution de la commande sur les devices / scènes
                     # command_executor.execute_command(command)

@@ -1,22 +1,25 @@
 # command_dispatcher.py
 
 from nlu.parser import parse_text
+from nlu.keywords import Keywords
 
 # Import des modules d'action
 import actions.light_actions as light_actions
 import actions.plug_actions as plug_actions
 import actions.shoppinglist_actions as shoppinglist_actions
 import actions.planning_actions as planning_actions
-import actions.unknown_actions as unknown_actions  # <--- import du fallback
+import actions.unknown_actions as unknown_actions
+import actions.stop_actions as stop_actions
 
 # ----------------------------
 #  DISPATCH TABLE
 # ----------------------------
 TARGET_DISPATCH = {
-    "light": light_actions,
-    "plug": plug_actions,
-    "shopping_list": shoppinglist_actions,
-    "planning": planning_actions,
+    Keywords.LIGHT: light_actions,
+    Keywords.PLUG: plug_actions,
+    Keywords.SHOPPING_LIST: shoppinglist_actions,
+    Keywords.PLANNING: planning_actions,
+    Keywords.STOP: stop_actions,
 }
 
 

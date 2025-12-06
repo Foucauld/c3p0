@@ -1,2 +1,5 @@
-étant la lumière du salon | Target : light | Action :  | Rooms : living_room | Params : 
-ceci est un test | Target :  | Action :  | Rooms :  | Params : 
+hum hum hum | Target :  | Action :  | Rooms :  | Params : 
+ça | Target :  | Action :  | Rooms :  | Params : 
+nous sommes | Target :  | Action :  | Rooms :  | Params : 
+ça | Target :  | Action :  | Rooms :  | Params : 
+ | Target :  | Action :  | Rooms :  | Params : 

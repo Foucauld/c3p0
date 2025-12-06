@@ -1,7 +1,6 @@
 import pyttsx3
 import simpleaudio as sa
 import os
-from commands import Command
 
 RESPONSES_DIR = "assets/responses"
 
@@ -32,28 +31,24 @@ def respond_tts(text):
     engine.runAndWait()
 
 
-def pick_response(command: Command, location: str = None):
+def pick_response(command, location: str = None):
     """
     Retourne le nom du fichier WAV correspondant à la commande.
     Si location est fourni, il est utilisé pour générer le nom du fichier.
     """
-    if command == Command.NOT_IMPLEMENTED:
+    if not command:
         return "UNKNOWN.wav"
-
-    if location:
-        return f"{command.name}_{location}.wav"
-    else:
-        return f"{command.name}.wav"
+    return f"{command}.wav"
 
 
-def execute_response(command: Command, location: str = None, fallback_text: str = None):
+def execute_response(command, fallback_text: str = None):
     """
     Joue la réponse audio correspondante à la commande.
     """
-    filename = pick_response(command, location)
+    filename = pick_response(command)
     if not play_response(filename):
         if fallback_text is None:
-            fallback_text = command.name.replace("_", " ").capitalize()
+            fallback_text = command.replace("_", " ").capitalize()
         respond_tts(fallback_text)
 
 

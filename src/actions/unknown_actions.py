@@ -1,4 +1,5 @@
 # actions/unknown_actions.py
+from nlu.keywords import Keywords
 
 INVALID_COMMANDS_FILE = "nlu/invalid_commands.txt"
 
@@ -11,8 +12,8 @@ def execute(action, target, rooms, params, original_text):
     <phrase> | Target : <target> | Action : <action> | Rooms : <rooms> | Params : <params>
     """
     if original_text is not None:
-        rooms_str = ", ".join(rooms) if rooms else ""
-        params_str = ", ".join(params) if params else ""
+        rooms_str = ", ".join(r.value for r in rooms) if rooms else ""
+        params_str = ", ".join(p.value for p in params) if params else ""
         action_str = action if action is not None else ""
         target_str = target if target is not None else ""
 
@@ -33,4 +34,4 @@ def execute(action, target, rooms, params, original_text):
     print(f"Rooms : {rooms}")
     print(f"Params : {params}")
 
-    return {"status": "unknown_command_logged", "text": original_text}
+    return Keywords.UNKNOWN.name
