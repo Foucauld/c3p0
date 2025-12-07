@@ -16,25 +16,43 @@ def execute(action: Keywords, rooms: list, params: list):
     for room in rooms:
         if room == Keywords.LIVING_ROOM:
             return execute_living_room_actions(action, params)
+        if room == Keywords.KITCHEN:
+            return execute_kitchen_actions(action, params)
+        if room == Keywords.BEDROOM:
+            return execute_bedroom_actions(action, params)
     print(f"[WARNING] Aucune action définie pour {rooms}")
     return Keywords.UNKNOWN.name
 
 
 def execute_living_room_actions(action: Keywords, params: list):
     if action == Keywords.ENABLE:
-        # Ici tu mettrais l'appel Phoscon pour allumer le salon
-
         return process_light(Keywords.LIVING_ROOM, params, action)
     elif action == Keywords.DISABLE:
-        # Ici tu mettrais l'appel Phoscon pour éteindre le salon
-
         return process_light(Keywords.LIVING_ROOM, params, action)
     elif action == Keywords.AMBIENCE:
-        # Ici tu mettrais l'appel Phoscon pour éteindre le salon
-        print("💡 Ambiance dans le salon")
         return process_scene(Keywords.LIVING_ROOM, params)
     else:
         print(f"[WARNING] Action '{action}' non gérée pour lights in living_room")
+        return Keywords.UNKNOWN.name
+
+
+def execute_kitchen_actions(action: Keywords, params: list):
+    if action == Keywords.ENABLE:
+        return process_light(Keywords.KITCHEN, params, action)
+    elif action == Keywords.DISABLE:
+        return process_light(Keywords.KITCHEN, params, action)
+    else:
+        print(f"[WARNING] Action '{action}' non gérée pour lights in kitchen")
+        return Keywords.UNKNOWN.name
+
+
+def execute_bedroom_actions(action: Keywords, params: list):
+    if action == Keywords.ENABLE:
+        return process_light(Keywords.BEDROOM, params, action)
+    elif action == Keywords.DISABLE:
+        return process_light(Keywords.BEDROOM, params, action)
+    else:
+        print(f"[WARNING] Action '{action}' non gérée pour lights in bedroom")
         return Keywords.UNKNOWN.name
 
 
