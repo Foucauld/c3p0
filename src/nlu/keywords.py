@@ -107,7 +107,7 @@ PARAM_KEYWORDS = {
     Keywords.AMBIENCE_FOREST: ["nature", "forêt", "foret", "vert", "verte"],
     Keywords.AMBIENCE_WARM: ["chaude"],
     Keywords.AMBIENCE_SUNSET: ["coucher", "crépuscule"],
-    Keywords.AMBIENCE_GAMING: ["jeu", "néon", "violet", "violette"],
+    Keywords.AMBIENCE_GAMING: ["jeu", "néon", "violet", "violette", "gaming"],
     Keywords.AMBIENCE_CHILL: ["tranquille", "bleue"],
     # prises
     # shopping list

@@ -1,5 +1,3 @@
-hum hum hum | Target :  | Action :  | Rooms :  | Params : 
-ça | Target :  | Action :  | Rooms :  | Params : 
-nous sommes | Target :  | Action :  | Rooms :  | Params : 
-ça | Target :  | Action :  | Rooms :  | Params : 
- | Target :  | Action :  | Rooms :  | Params : 
+
+façon jacques chauffe rançon | Target :  | Action :  | Rooms :  | Params : 
+al | Target :  | Action :  | Rooms :  | Params : 

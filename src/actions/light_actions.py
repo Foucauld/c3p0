@@ -23,15 +23,15 @@ def execute(action: Keywords, rooms: list, params: list):
 def execute_living_room_actions(action: Keywords, params: list):
     if action == Keywords.ENABLE:
         # Ici tu mettrais l'appel Phoscon pour allumer le salon
-        print("💡 Allumage du salon")
+
         return process_light(Keywords.LIVING_ROOM, params, action)
     elif action == Keywords.DISABLE:
         # Ici tu mettrais l'appel Phoscon pour éteindre le salon
-        print("💡 Extinction du salon")
+
         return process_light(Keywords.LIVING_ROOM, params, action)
     elif action == Keywords.AMBIENCE:
         # Ici tu mettrais l'appel Phoscon pour éteindre le salon
-        print("💡 Ambiance tamisée dans le salon")
+        print("💡 Ambiance dans le salon")
         return process_scene(Keywords.LIVING_ROOM, params)
     else:
         print(f"[WARNING] Action '{action}' non gérée pour lights in living_room")
@@ -42,9 +42,11 @@ def process_light(room: Keywords, params: list, state: Keywords):
     group_id = get_group_id(room.value)
     if not params:
         if state == Keywords.ENABLE:
+            print(f"💡 Allumage de {room.value}")
             execute_scene(group_id, Keywords.AMBIENCE_DEFAULT.value)
             return f"{Keywords.LIGHT.name}_{room.value}_{state.value}"
         elif state == Keywords.DISABLE:
+            print(f"💡 Extinction de {room.value}")
             disable_all_lights(group_id)
             return f"{Keywords.LIGHT.name}_{room.value}_{state.value}"
     else:
@@ -55,6 +57,9 @@ def process_light(room: Keywords, params: list, state: Keywords):
         else:
             for light in lights:
                 if light in params:
+                    print(
+                        f"💡 Action {state.value} dans {room.value} sur {light.value}"
+                    )
                     execute_device(light.value, state.value, room.value)
                     return f"{light.name}_{room.value}_{state.value}"
     print(
