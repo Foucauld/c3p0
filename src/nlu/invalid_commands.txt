@@ -1,3 +1,20 @@
 
 façon jacques chauffe rançon | Target :  | Action :  | Rooms :  | Params : 
 al | Target :  | Action :  | Rooms :  | Params : 
+allume la chambre | Target :  | Action : Keywords.ENABLE | Rooms : CHAMBRE | Params : 
+ | Target :  | Action :  | Rooms :  | Params : 
+hop hop hop hop | Target :  | Action :  | Rooms :  | Params : 
+est un le plafond de la chambre | Target : Keywords.LIGHT | Action :  | Rooms : CHAMBRE | Params : PLAFOND
+allume la cuisine | Target :  | Action : Keywords.ENABLE | Rooms : CUISINE | Params : 
+reste donc j'étais déjà maroc | Target :  | Action :  | Rooms :  | Params : 
+ | Target :  | Action :  | Rooms :  | Params : 
+dans la lumière de la cuisine comme ça | Target : Keywords.LIGHT | Action :  | Rooms : CUISINE | Params : 
+vous envoie | Target :  | Action :  | Rooms :  | Params : 
+parce que | Target :  | Action :  | Rooms :  | Params : 
+ | Target :  | Action :  | Rooms :  | Params : 
+hum hum hum | Target :  | Action :  | Rooms :  | Params : 
+tu peux ont chopé rapidement dans | Target :  | Action :  | Rooms :  | Params : 
+dans vie | Target :  | Action :  | Rooms :  | Params : 
+ | Target :  | Action :  | Rooms :  | Params : 
+ | Target :  | Action :  | Rooms :  | Params : 
+ | Target :  | Action :  | Rooms :  | Params : 

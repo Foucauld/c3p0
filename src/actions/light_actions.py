@@ -2,6 +2,7 @@ from api.phoscon import execute_device, execute_scene, disable_all_lights, get_g
 from nlu.keywords import Keywords
 from nlu.keywords import LIGHTS
 from nlu.keywords import AMBIENCES
+from nlu.keywords import LIGHTS_GROUPS
 
 
 def execute(action: Keywords, rooms: list, params: list):
@@ -37,23 +38,33 @@ def execute_living_room_actions(action: Keywords, params: list):
 
 
 def execute_kitchen_actions(action: Keywords, params: list):
-    if action == Keywords.ENABLE:
-        return process_light(Keywords.KITCHEN, params, action)
-    elif action == Keywords.DISABLE:
-        return process_light(Keywords.KITCHEN, params, action)
-    else:
-        print(f"[WARNING] Action '{action}' non gérée pour lights in kitchen")
+    if action != Keywords.ENABLE and action != Keywords.DISABLE:
+        print(f"[WARNING] Action '{action}' non gérée pour lights in KITCHEN")
         return Keywords.UNKNOWN.name
+    else:
+        for kitchen_group in LIGHTS_GROUPS.get(Keywords.KITCHEN):
+            if kitchen_group in params:
+                for light in LIGHTS_GROUPS.get(Keywords.KITCHEN).get(kitchen_group):
+                    params_group = [light]
+                    process_light(Keywords.KITCHEN, params_group, action)
+                return f"{kitchen_group.name}_{Keywords.KITCHEN.value}_{action.value}"
+
+        return process_light(Keywords.KITCHEN, params, action)
 
 
 def execute_bedroom_actions(action: Keywords, params: list):
-    if action == Keywords.ENABLE:
-        return process_light(Keywords.BEDROOM, params, action)
-    elif action == Keywords.DISABLE:
-        return process_light(Keywords.BEDROOM, params, action)
-    else:
+    if action != Keywords.ENABLE and action != Keywords.DISABLE:
         print(f"[WARNING] Action '{action}' non gérée pour lights in bedroom")
         return Keywords.UNKNOWN.name
+    else:
+        for bedroom_group in LIGHTS_GROUPS.get(Keywords.BEDROOM):
+            if bedroom_group in params:
+                for light in LIGHTS_GROUPS.get(Keywords.BEDROOM).get(bedroom_group):
+                    params_group = [light]
+                    process_light(Keywords.BEDROOM, params_group, action)
+                return f"{bedroom_group.name}_{Keywords.BEDROOM.value}_{action.value}"
+
+        return process_light(Keywords.BEDROOM, params, action)
 
 
 def process_light(room: Keywords, params: list, state: Keywords):

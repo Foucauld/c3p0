@@ -20,6 +20,9 @@ class Keywords(Enum):
     STUDY = "BUREAU"
     BEDROOM = "CHAMBRE"
     CEILING = "PLAFOND"
+    CEILING_1 = "PLAFOND_1"
+    CEILING_2 = "PLAFOND_2"
+    CEILING_3 = "PLAFOND_3"
     FLOOR_LAMP = "LAMPE_PIED"
     BED_LAMP = "LAMPE_CHEVET"
     BED_LAMP_LEFT = "LAMPE_CHEVET_GAUCHE"
@@ -108,7 +111,7 @@ PARAM_KEYWORDS = {
     Keywords.AMBIENCE_WARM: ["chaude"],
     Keywords.AMBIENCE_SUNSET: ["coucher", "crépuscule"],
     Keywords.AMBIENCE_GAMING: ["jeu", "néon", "violet", "violette", "gaming"],
-    Keywords.AMBIENCE_CHILL: ["tranquille", "bleue"],
+    Keywords.AMBIENCE_CHILL: ["tranquille", "bleue", "bleu", "froide", "froid"],
     # prises
     # shopping list
     # planning
@@ -121,9 +124,12 @@ PARAM_KEYWORDS = {
 # dépendant des rooms
 LIGHTS = {
     Keywords.LIVING_ROOM: [Keywords.CEILING, Keywords.FLOOR_LAMP],
-    Keywords.KITCHEN: [Keywords.CEILING],
+    Keywords.KITCHEN: [Keywords.CEILING_1, Keywords.CEILING_2],
     Keywords.BEDROOM: [
         Keywords.CEILING,
+        Keywords.CEILING_1,
+        Keywords.CEILING_2,
+        Keywords.CEILING_3,
         Keywords.BED_LAMP_LEFT,
         Keywords.BED_LAMP_RIGHT,
     ],
@@ -140,3 +146,10 @@ AMBIENCES = [
     Keywords.AMBIENCE_GAMING,
     Keywords.AMBIENCE_CHILL,
 ]
+
+LIGHTS_GROUPS = {
+    Keywords.BEDROOM: {
+        Keywords.CEILING: [Keywords.CEILING_1, Keywords.CEILING_2, Keywords.CEILING_3]
+    },
+    Keywords.KITCHEN: {Keywords.CEILING: [Keywords.CEILING_1, Keywords.CEILING_2]},
+}
